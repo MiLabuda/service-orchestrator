@@ -1,4 +1,19 @@
 services:
+  user-service-postgres:
+    image: postgres:14-alpine
+    ports:
+      - "5400:5432"
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=user
+      - POSTGRES_DB=user-service-db
+    networks:
+      backend:
+        aliases:
+          - "user-postgres"
+
   keycloak:
     image: keycloak/keycloak:25.0
     restart: always
